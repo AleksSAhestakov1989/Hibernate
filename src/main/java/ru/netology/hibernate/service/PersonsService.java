@@ -13,6 +13,14 @@ public class PersonsService {
     private PersonsRepository repository;
 
     public List<Persons> getPersonsByCity(String city) {
-        return repository.getPersonsByCity(city);
+        return repository.findPersonsByCityOfLiving(city);
+    }
+
+    public List<Persons> getPersonsByAge(int age) {
+        return repository.findPersonsByPrimaryIdAgeLessThanOrderByPrimaryIdAge(age);
+    }
+
+    public List<Persons> getPersonByNameAndSurname(String name, String surname) {
+        return repository.findPersonsByPrimaryIdNameAndPrimaryIdSurname(name, surname);
     }
 }
