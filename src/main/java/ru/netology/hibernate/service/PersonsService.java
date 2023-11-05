@@ -21,6 +21,6 @@ public class PersonsService {
     }
 
     public List<Persons> getPersonByNameAndSurname(String name, String surname) {
-        return repository.findPersonsByPrimaryIdNameAndPrimaryIdSurname(name, surname);
+        return repository.findPersonsByPrimaryId_NameAndPrimaryId_Surname(name, surname);
     }
 }
