@@ -1,7 +1,6 @@
 package ru.netology.hibernate;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
+
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;

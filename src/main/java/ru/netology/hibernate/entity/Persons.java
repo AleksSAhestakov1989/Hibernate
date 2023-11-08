@@ -1,7 +1,12 @@
 package ru.netology.hibernate.entity;
 
-import jakarta.persistence.*;
+
 import lombok.*;
+
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @ToString
 @Getter
