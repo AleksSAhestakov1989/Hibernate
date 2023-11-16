@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -11,7 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 
-@Configuration
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true, jsr250Enabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
@@ -24,24 +25,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
                 .withUser("Ivanov")
                 .password(encoder().encode("password1"))
-                .authorities("read", "write")
+                .roles("READ")
                 .and()
                 .withUser("Petrov")
                 .password(encoder().encode("password2"))
-                .authorities("read")
+                .roles("WRITE")
+                .and()
+                .withUser("Denis")
+                .password(encoder().encode("password3"))
+                .roles("WRITE", "DELETE")
         ;
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin()
-                .and()
-                .authorizeHttpRequests().antMatchers(HttpMethod.GET, "/persons/by-name-surname").permitAll()
-                .and()
-                .authorizeHttpRequests().antMatchers(HttpMethod.GET, "/persons/by-age").hasAuthority("write")
-                .and()
-                .authorizeHttpRequests().antMatchers(HttpMethod.GET, "/persons/by-city").hasAuthority("read")
-                .and()
-                .authorizeHttpRequests().anyRequest().authenticated();
-    }
+
 }
